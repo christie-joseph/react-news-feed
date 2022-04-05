@@ -10,6 +10,7 @@ import {
 } from "./Constants";
 
 import NewsItem from "./Components/NewsItem";
+import Pagination from "./Components/Pagination";
 
 const App = () => {
   const [newsData, setNewsData] = useState([]);
@@ -134,19 +135,12 @@ const App = () => {
         </div>
       )}
 
-      <div className="pagination-container">
-        <button onClick={navigatePrevious} disabled={activeFilters.page === 1}>
-          Previous
-        </button>
-        <button
-          onClick={navigateNext}
-          disabled={
-            activeFilters.page + 1 > totalNewsResultsCount / NEWS_ITEMS_PER_PAGE
-          }
-        >
-          Next
-        </button>
-      </div>
+      <Pagination
+        navigatePrevious={navigatePrevious}
+        navigateNext={navigateNext}
+        totalNewsResultsCount={totalNewsResultsCount}
+        activeFilters={activeFilters}
+      />
     </div>
   );
 };

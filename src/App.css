@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.grid-container {
+  display: grid;
+  gap: 50px;
+}
+.nav{
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+.news{
+  grid-column-start: 2;
+  grid-column-end:auto;
+  border: 2px solid black;
+}

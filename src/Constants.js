@@ -1,5 +1,14 @@
 const NEWSAPI_URL = "https://newsapi.org/v2/top-headlines";
-const APIKEY = "d3a68d3a93a54948a016a1553bc4d20c";
+// const APIKEY = "d3a68d3a93a54948a016a1553bc4d20c";
+const APIKEY = "2605daa9f8574d97bfa47802c17e5d33";
+const NEWS_ITEMS_PER_PAGE = 10;
+
+const INITIAL_FILTERS = {
+  q: "",
+  country: null,
+  category: null,
+  page: 1,
+};
 const COUNTRIES = [
   {
     name: "United Arab Emirates",
@@ -219,13 +228,20 @@ const COUNTRIES = [
   },
 ];
 const CATEGORY = [
-  "business",
-  "entertainment",
-  "general",
-  "health",
-  "science",
-  "sports",
-  "technology",
+  "Business",
+  "Entertainment",
+  "General",
+  "Health",
+  "Science",
+  "Sports",
+  "Technology",
 ];
 
-export { NEWSAPI_URL, APIKEY, COUNTRIES, CATEGORY };
+export {
+  NEWSAPI_URL,
+  APIKEY,
+  COUNTRIES,
+  CATEGORY,
+  INITIAL_FILTERS,
+  NEWS_ITEMS_PER_PAGE,
+};

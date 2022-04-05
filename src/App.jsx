@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import {
   NEWSAPI_URL,
   APIKEY,
-  COUNTRIES,
-  CATEGORY,
   INITIAL_FILTERS,
   NEWS_ITEMS_PER_PAGE,
 } from "./Constants";
@@ -73,32 +71,46 @@ const App = () => {
   };
 
   return (
-    <div className="grid-container">
-      <Sidebar
-        activeFilters={activeFilters}
-        setActiveFilters={setActiveFilters}
-        clearFilters={clearFilters}
-      />
-
-      {newsData.length === 0 && <div>No Results Found</div>}
-
-      {isDataLoading ? (
-        <div>Loading..</div>
-      ) : (
-        <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-          {newsData.map((newsItem) => (
-            <NewsItem newsItem={newsItem} />
-          ))}
+    <>
+      <h1 className="text-white font-semibold leading-tight text-5xl mt-0 mb-2 text-white-600">
+        News Feed App
+      </h1>
+      <div className="grid-container">
+        <div className="sidebar">
+          <Sidebar
+            activeFilters={activeFilters}
+            setActiveFilters={setActiveFilters}
+            clearFilters={clearFilters}
+          />
         </div>
-      )}
 
-      <Pagination
-        navigatePrevious={navigatePrevious}
-        navigateNext={navigateNext}
-        totalNewsResultsCount={totalNewsResultsCount}
-        activeFilters={activeFilters}
-      />
-    </div>
+        <Pagination
+          navigatePrevious={navigatePrevious}
+          navigateNext={navigateNext}
+          totalNewsResultsCount={totalNewsResultsCount}
+          activeFilters={activeFilters}
+        />
+
+        {newsData.length === 0 && <div>No Results Found</div>}
+
+        {isDataLoading ? (
+          <div>Loading..</div>
+        ) : (
+          <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+            {newsData.map((newsItem) => (
+              <NewsItem newsItem={newsItem} />
+            ))}
+          </div>
+        )}
+
+        <Pagination
+          navigatePrevious={navigatePrevious}
+          navigateNext={navigateNext}
+          totalNewsResultsCount={totalNewsResultsCount}
+          activeFilters={activeFilters}
+        />
+      </div>
+    </>
   );
 };
 

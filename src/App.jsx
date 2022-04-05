@@ -9,6 +9,8 @@ import {
   NEWS_ITEMS_PER_PAGE,
 } from "./Constants";
 
+import NewsItem from "./Components/NewsItem";
+
 const App = () => {
   const [newsData, setNewsData] = useState([]);
   const [isDataLoading, setIsDataLoading] = useState(true);
@@ -126,38 +128,9 @@ const App = () => {
         <div>Loading..</div>
       ) : (
         <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-          {newsData.map((newsItem) => {
-            return (
-              <div className="article" key={newsItem.url}>
-                <a href={newsItem.url}>
-                  <img
-                    className="w-full"
-                    src={newsItem.urlToImage}
-                    alt={newsItem.title}
-                  />
-                </a>
-                <div className="px-6 py-4">
-                  <a href={newsItem.url} className="font-bold text-xl mb-2">
-                    {newsItem.title}
-                  </a>
-                </div>
-                <span className="text-gray-400 text-base">
-                  {newsItem.author}
-                </span>
-                <br />
-                <p className="text-gray-700 text-base">
-                  {newsItem.description}
-                </p>
-                <div className="px-6 pt-4 pb-2">
-                  <a href={newsItem.url}>
-                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                      readmore
-                    </span>
-                  </a>
-                </div>
-              </div>
-            );
-          })}
+          {newsData.map((newsItem) => (
+            <NewsItem newsItem={newsItem} />
+          ))}
         </div>
       )}
 

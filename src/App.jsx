@@ -11,6 +11,7 @@ import {
 
 import NewsItem from "./Components/NewsItem";
 import Pagination from "./Components/Pagination";
+import { buildUrl } from "./utils";
 
 const App = () => {
   const [newsData, setNewsData] = useState([]);
@@ -47,17 +48,6 @@ const App = () => {
     fetchNewsData(newsUrl);
   }, [activeFilters]);
 
-  const fetchNewsData = (newsUrl) => {
-    setIsDataLoading(true);
-    fetch(newsUrl)
-      .then((response) => response.json())
-      .then((json) => {
-        setNewsData(json.articles);
-        setTotalNewsResultsCount(json.totalResults);
-        setIsDataLoading(false);
-      });
-  };
-
   const navigateNext = () => {
     setActiveFilters({ ...activeFilters, page: activeFilters.page + 1 });
   };
@@ -70,9 +60,20 @@ const App = () => {
     setActiveFilters(INITIAL_FILTERS);
   };
 
+  const fetchNewsData = (newsUrl) => {
+    setIsDataLoading(true);
+    fetch(newsUrl)
+      .then((response) => response.json())
+      .then((json) => {
+        setNewsData(json.articles);
+        setTotalNewsResultsCount(json.totalResults);
+        setIsDataLoading(false);
+      });
+  };
+
   return (
     <div className="grid-container">
-      <div className="nav">
+      <div className="sidebar">
         <input
           value={activeFilters.q}
           onChange={(e) =>
@@ -124,7 +125,9 @@ const App = () => {
         </div>
         <button onClick={clearFilters}>Clear Filter</button>
       </div>
+
       {newsData.length === 0 && <div>No Results Found</div>}
+
       {isDataLoading ? (
         <div>Loading..</div>
       ) : (
@@ -145,11 +148,4 @@ const App = () => {
   );
 };
 
-const buildUrl = (endpointUrl, parameters) => {
-  let url = endpointUrl + "?";
-  Object.keys(parameters).forEach(
-    (key) => (url += key + "=" + parameters[key] + "&")
-  );
-  return url.slice(0, -1);
-};
 export default App;

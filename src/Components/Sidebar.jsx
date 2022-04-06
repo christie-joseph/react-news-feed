@@ -16,25 +16,17 @@ const Sidebar = ({
   };
 
   return (
-    <div className="h-full min-w-max">
+    <aside className="h-full min-w-max">
       <h4 className="font-semibold text-xl mb-2">Filters</h4>
       <input
         className="border-4 py-2 px-4 rounded-md w-full"
-        ariaLabel="Filter projects"
         value={activeFilters.q}
         onChange={(e) =>
           setActiveFilters({ ...activeFilters, q: e.target.value })
         }
         placeholder="Search Keyword"
       />
-      <div
-        onChange={(e) => {
-          setActiveFilters({
-            ...activeFilters,
-            category: e.target.value,
-          });
-        }}
-      >
+      <div>
         <select
           className="border-4 py-2 px-4 rounded-md w-full mt-6"
           value={activeFilters.category === null ? "" : activeFilters.category}
@@ -86,7 +78,7 @@ const Sidebar = ({
         totalNewsResultsCount={totalNewsResultsCount}
         activeFilters={activeFilters}
       />
-    </div>
+    </aside>
   );
 };
 

@@ -12,6 +12,7 @@ import { buildUrl } from "./utils";
 import Sidebar from "./Components/Sidebar";
 
 const App = () => {
+  //Initialise states
   const [newsData, setNewsData] = useState([]);
   const [isDataLoading, setIsDataLoading] = useState(true);
   const [activeFilters, setActiveFilters] = useState(INITIAL_FILTERS);
@@ -63,7 +64,7 @@ const App = () => {
 
   return (
     <>
-      <nav className=" px-16 py-5 font-semibold text-2xl mb-12 shadow-lg ">
+      <nav className="px-16 py-5 font-semibold text-2xl mb-12 shadow-lg">
         News Feed App
       </nav>
 
@@ -88,7 +89,7 @@ const App = () => {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
               {newsData.map((newsItem) => (
-                <NewsItem newsItem={newsItem} />
+                <NewsItem key={newsItem.url} newsItem={newsItem} />
               ))}
             </div>
           )}

@@ -9,5 +9,11 @@
 .news {
   grid-column-start: 2;
   grid-column-end: auto;
-  border: 2px solid black;
+}
+.min-w-max {
+  min-width: max-content;
+}
+button[disabled] {
+  opacity: 0.7;
+  pointer-events: none;
 }

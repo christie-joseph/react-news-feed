@@ -8,7 +8,6 @@ import {
 } from "./Constants";
 
 import NewsItem from "./Components/NewsItem";
-import Pagination from "./Components/Pagination";
 import { buildUrl } from "./utils";
 import Sidebar from "./Components/Sidebar";
 
@@ -47,14 +46,6 @@ const App = () => {
     fetchNewsData(newsUrl);
   }, [activeFilters]);
 
-  const navigateNext = () => {
-    setActiveFilters({ ...activeFilters, page: activeFilters.page + 1 });
-  };
-
-  const navigatePrevious = () => {
-    setActiveFilters({ ...activeFilters, page: activeFilters.page - 1 });
-  };
-
   const clearFilters = () => {
     setActiveFilters(INITIAL_FILTERS);
   };
@@ -72,43 +63,36 @@ const App = () => {
 
   return (
     <>
-      <h1 className="text-white font-semibold leading-tight text-5xl mt-0 mb-2 text-white-600">
+      <nav className=" px-16 py-5 font-semibold text-2xl mb-12 shadow-lg ">
         News Feed App
-      </h1>
-      <div className="grid-container">
-        <div className="sidebar">
-          <Sidebar
-            activeFilters={activeFilters}
-            setActiveFilters={setActiveFilters}
-            clearFilters={clearFilters}
-          />
+      </nav>
+
+      <div className="container flex justify-center mx-auto gap-8">
+        <Sidebar
+          activeFilters={activeFilters}
+          setActiveFilters={setActiveFilters}
+          clearFilters={clearFilters}
+          totalNewsResultsCount={totalNewsResultsCount}
+        />
+        <div className="grid-container flex-1">
+          {newsData.length === 0 && !isDataLoading && (
+            <div className="w-full text-center self-center text-2xl">
+              No Results Found
+            </div>
+          )}
+
+          {isDataLoading ? (
+            <div className="w-full text-center self-center text-2xl">
+              Loading..
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+              {newsData.map((newsItem) => (
+                <NewsItem newsItem={newsItem} />
+              ))}
+            </div>
+          )}
         </div>
-
-        <Pagination
-          navigatePrevious={navigatePrevious}
-          navigateNext={navigateNext}
-          totalNewsResultsCount={totalNewsResultsCount}
-          activeFilters={activeFilters}
-        />
-
-        {newsData.length === 0 && <div>No Results Found</div>}
-
-        {isDataLoading ? (
-          <div>Loading..</div>
-        ) : (
-          <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-            {newsData.map((newsItem) => (
-              <NewsItem newsItem={newsItem} />
-            ))}
-          </div>
-        )}
-
-        <Pagination
-          navigatePrevious={navigatePrevious}
-          navigateNext={navigateNext}
-          totalNewsResultsCount={totalNewsResultsCount}
-          activeFilters={activeFilters}
-        />
       </div>
     </>
   );
